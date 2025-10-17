@@ -288,7 +288,7 @@ function showTooltip(event, d) {
   const countryName = d.properties.name;
   let html = `<strong>${countryName}</strong>`;
   if (match) {
-    html += `<div>Performance: ${match.performance.replace(/\b\w/g, c => c.toUpperCase())}</div>`;
+    html += `<div><em>${match.performance.replace(/\b\w/g, c => c.toUpperCase())}</em></div>`;
   } else {
     html += `<div>No qualification</div>`;
   }
