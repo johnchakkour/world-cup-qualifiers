@@ -1,0 +1,490 @@
+﻿tournament_year,team_id,team_name,team_code,count_matches,performance
+1930,T-03,Argentina,ARG,5,final
+1930,T-06,Belgium,BEL,2,group stage
+1930,T-07,Bolivia,BOL,2,group stage
+1930,T-09,Brazil,BRA,2,group stage
+1930,T-13,Chile,CHL,3,group stage
+1930,T-30,France,FRA,3,group stage
+1930,T-46,Mexico,MEX,3,group stage
+1930,T-55,Paraguay,PRY,2,group stage
+1930,T-56,Peru,PER,2,group stage
+1930,T-61,Romania,ROU,2,group stage
+1930,T-83,United States,USA,3,semi-finals
+1930,T-84,Uruguay,URY,4,final
+1930,T-87,Yugoslavia,YUG,3,semi-finals
+1934,T-03,Argentina,ARG,1,round of 16
+1934,T-05,Austria,AUT,4,third-place match
+1934,T-06,Belgium,BEL,1,round of 16
+1934,T-09,Brazil,BRA,1,round of 16
+1934,T-21,Czechoslovakia,CSK,4,final
+1934,T-26,Egypt,EGY,1,round of 16
+1934,T-30,France,FRA,1,round of 16
+1934,T-31,Germany,DEU,4,third-place match
+1934,T-36,Hungary,HUN,2,quarter-finals
+1934,T-41,Italy,ITA,5,final
+1934,T-48,Netherlands,NLD,1,round of 16
+1934,T-61,Romania,ROU,1,round of 16
+1934,T-73,Spain,ESP,3,quarter-finals
+1934,T-74,Sweden,SWE,2,quarter-finals
+1934,T-75,Switzerland,CHE,2,quarter-finals
+1934,T-83,United States,USA,1,round of 16
+1938,T-06,Belgium,BEL,1,round of 16
+1938,T-09,Brazil,BRA,5,third-place match
+1938,T-19,Cuba,CUB,3,quarter-finals
+1938,T-21,Czechoslovakia,CSK,3,quarter-finals
+1938,T-23,Dutch East Indies,IDN,1,round of 16
+1938,T-30,France,FRA,2,quarter-finals
+1938,T-31,Germany,DEU,2,round of 16
+1938,T-36,Hungary,HUN,4,final
+1938,T-41,Italy,ITA,4,final
+1938,T-48,Netherlands,NLD,1,round of 16
+1938,T-53,Norway,NOR,1,round of 16
+1938,T-57,Poland,POL,1,round of 16
+1938,T-61,Romania,ROU,2,round of 16
+1938,T-74,Sweden,SWE,3,third-place match
+1938,T-75,Switzerland,CHE,3,quarter-finals
+1950,T-07,Bolivia,BOL,1,group stage
+1950,T-09,Brazil,BRA,6,final round
+1950,T-13,Chile,CHL,3,group stage
+1950,T-28,England,ENG,3,group stage
+1950,T-41,Italy,ITA,2,group stage
+1950,T-46,Mexico,MEX,3,group stage
+1950,T-55,Paraguay,PRY,2,group stage
+1950,T-73,Spain,ESP,6,final round
+1950,T-74,Sweden,SWE,5,final round
+1950,T-75,Switzerland,CHE,3,group stage
+1950,T-83,United States,USA,3,group stage
+1950,T-84,Uruguay,URY,4,final round
+1950,T-87,Yugoslavia,YUG,3,group stage
+1954,T-05,Austria,AUT,5,third-place match
+1954,T-06,Belgium,BEL,2,group stage
+1954,T-09,Brazil,BRA,3,quarter-finals
+1954,T-21,Czechoslovakia,CSK,2,group stage
+1954,T-28,England,ENG,3,quarter-finals
+1954,T-30,France,FRA,2,group stage
+1954,T-36,Hungary,HUN,5,final
+1954,T-41,Italy,ITA,3,group stage
+1954,T-46,Mexico,MEX,2,group stage
+1954,T-64,Scotland,SCO,2,group stage
+1954,T-71,South Korea,KOR,2,group stage
+1954,T-75,Switzerland,CHE,4,quarter-finals
+1954,T-80,Turkey,TUR,3,group stage
+1954,T-84,Uruguay,URY,5,third-place match
+1954,T-86,West Germany,DEU,6,final
+1954,T-87,Yugoslavia,YUG,3,quarter-finals
+1958,T-03,Argentina,ARG,3,group stage
+1958,T-05,Austria,AUT,3,group stage
+1958,T-09,Brazil,BRA,6,final
+1958,T-21,Czechoslovakia,CSK,4,group stage
+1958,T-28,England,ENG,4,group stage
+1958,T-30,France,FRA,6,third-place match
+1958,T-36,Hungary,HUN,4,group stage
+1958,T-46,Mexico,MEX,3,group stage
+1958,T-52,Northern Ireland,NIR,5,quarter-finals
+1958,T-55,Paraguay,PRY,3,group stage
+1958,T-64,Scotland,SCO,3,group stage
+1958,T-72,Soviet Union,SUN,5,quarter-finals
+1958,T-74,Sweden,SWE,6,final
+1958,T-85,Wales,WAL,5,quarter-finals
+1958,T-86,West Germany,DEU,6,third-place match
+1958,T-87,Yugoslavia,YUG,4,quarter-finals
+1962,T-03,Argentina,ARG,3,group stage
+1962,T-09,Brazil,BRA,6,final
+1962,T-10,Bulgaria,BGR,3,group stage
+1962,T-13,Chile,CHL,6,third-place match
+1962,T-16,Colombia,COL,3,group stage
+1962,T-21,Czechoslovakia,CSK,6,final
+1962,T-28,England,ENG,4,quarter-finals
+1962,T-36,Hungary,HUN,4,quarter-finals
+1962,T-41,Italy,ITA,3,group stage
+1962,T-46,Mexico,MEX,3,group stage
+1962,T-72,Soviet Union,SUN,4,quarter-finals
+1962,T-73,Spain,ESP,3,group stage
+1962,T-75,Switzerland,CHE,3,group stage
+1962,T-84,Uruguay,URY,3,group stage
+1962,T-86,West Germany,DEU,4,quarter-finals
+1962,T-87,Yugoslavia,YUG,6,third-place match
+1966,T-03,Argentina,ARG,4,quarter-finals
+1966,T-09,Brazil,BRA,3,group stage
+1966,T-10,Bulgaria,BGR,3,group stage
+1966,T-13,Chile,CHL,3,group stage
+1966,T-28,England,ENG,6,final
+1966,T-30,France,FRA,3,group stage
+1966,T-36,Hungary,HUN,4,quarter-finals
+1966,T-41,Italy,ITA,3,group stage
+1966,T-46,Mexico,MEX,3,group stage
+1966,T-51,North Korea,PRK,4,quarter-finals
+1966,T-58,Portugal,PRT,6,third-place match
+1966,T-72,Soviet Union,SUN,6,third-place match
+1966,T-73,Spain,ESP,3,group stage
+1966,T-75,Switzerland,CHE,3,group stage
+1966,T-84,Uruguay,URY,4,quarter-finals
+1966,T-86,West Germany,DEU,6,final
+1970,T-06,Belgium,BEL,3,group stage
+1970,T-09,Brazil,BRA,6,final
+1970,T-10,Bulgaria,BGR,3,group stage
+1970,T-21,Czechoslovakia,CSK,3,group stage
+1970,T-27,El Salvador,SLV,3,group stage
+1970,T-28,England,ENG,4,quarter-finals
+1970,T-40,Israel,ISR,3,group stage
+1970,T-41,Italy,ITA,6,final
+1970,T-46,Mexico,MEX,4,quarter-finals
+1970,T-47,Morocco,MAR,3,group stage
+1970,T-56,Peru,PER,4,quarter-finals
+1970,T-61,Romania,ROU,3,group stage
+1970,T-72,Soviet Union,SUN,4,quarter-finals
+1970,T-74,Sweden,SWE,3,group stage
+1970,T-84,Uruguay,URY,6,third-place match
+1970,T-86,West Germany,DEU,6,third-place match
+1974,T-03,Argentina,ARG,6,second group stage
+1974,T-04,Australia,AUS,3,group stage
+1974,T-09,Brazil,BRA,7,third-place match
+1974,T-10,Bulgaria,BGR,3,group stage
+1974,T-13,Chile,CHL,3,group stage
+1974,T-24,East Germany,DDR,6,second group stage
+1974,T-34,Haiti,HTI,3,group stage
+1974,T-41,Italy,ITA,3,group stage
+1974,T-48,Netherlands,NLD,7,final
+1974,T-57,Poland,POL,7,third-place match
+1974,T-64,Scotland,SCO,3,group stage
+1974,T-74,Sweden,SWE,6,second group stage
+1974,T-84,Uruguay,URY,3,group stage
+1974,T-86,West Germany,DEU,7,final
+1974,T-87,Yugoslavia,YUG,6,second group stage
+1974,T-88,Zaire,COD,3,group stage
+1978,T-03,Argentina,ARG,7,final
+1978,T-05,Austria,AUT,6,second group stage
+1978,T-09,Brazil,BRA,7,third-place match
+1978,T-30,France,FRA,3,group stage
+1978,T-36,Hungary,HUN,3,group stage
+1978,T-38,Iran,IRN,3,group stage
+1978,T-41,Italy,ITA,7,third-place match
+1978,T-46,Mexico,MEX,3,group stage
+1978,T-48,Netherlands,NLD,7,final
+1978,T-56,Peru,PER,6,second group stage
+1978,T-57,Poland,POL,6,second group stage
+1978,T-64,Scotland,SCO,3,group stage
+1978,T-73,Spain,ESP,3,group stage
+1978,T-74,Sweden,SWE,3,group stage
+1978,T-79,Tunisia,TUN,3,group stage
+1978,T-86,West Germany,DEU,6,second group stage
+1982,T-01,Algeria,DZA,3,group stage
+1982,T-03,Argentina,ARG,5,second group stage
+1982,T-05,Austria,AUT,5,second group stage
+1982,T-06,Belgium,BEL,5,second group stage
+1982,T-09,Brazil,BRA,5,second group stage
+1982,T-11,Cameroon,CMR,3,group stage
+1982,T-13,Chile,CHL,3,group stage
+1982,T-21,Czechoslovakia,CSK,3,group stage
+1982,T-27,El Salvador,SLV,3,group stage
+1982,T-28,England,ENG,5,second group stage
+1982,T-30,France,FRA,7,third-place match
+1982,T-35,Honduras,HND,3,group stage
+1982,T-36,Hungary,HUN,3,group stage
+1982,T-41,Italy,ITA,7,final
+1982,T-45,Kuwait,KWT,3,group stage
+1982,T-49,New Zealand,NZL,3,group stage
+1982,T-52,Northern Ireland,NIR,5,second group stage
+1982,T-56,Peru,PER,3,group stage
+1982,T-57,Poland,POL,7,third-place match
+1982,T-64,Scotland,SCO,3,group stage
+1982,T-72,Soviet Union,SUN,5,second group stage
+1982,T-73,Spain,ESP,5,second group stage
+1982,T-86,West Germany,DEU,7,final
+1982,T-87,Yugoslavia,YUG,3,group stage
+1986,T-01,Algeria,DZA,3,group stage
+1986,T-03,Argentina,ARG,7,final
+1986,T-06,Belgium,BEL,7,third-place match
+1986,T-09,Brazil,BRA,5,quarter-finals
+1986,T-10,Bulgaria,BGR,4,round of 16
+1986,T-12,Canada,CAN,3,group stage
+1986,T-22,Denmark,DNK,4,round of 16
+1986,T-28,England,ENG,5,quarter-finals
+1986,T-30,France,FRA,7,third-place match
+1986,T-36,Hungary,HUN,3,group stage
+1986,T-39,Iraq,IRQ,3,group stage
+1986,T-41,Italy,ITA,4,round of 16
+1986,T-46,Mexico,MEX,5,quarter-finals
+1986,T-47,Morocco,MAR,4,round of 16
+1986,T-52,Northern Ireland,NIR,3,group stage
+1986,T-55,Paraguay,PRY,4,round of 16
+1986,T-57,Poland,POL,4,round of 16
+1986,T-58,Portugal,PRT,3,group stage
+1986,T-64,Scotland,SCO,3,group stage
+1986,T-71,South Korea,KOR,3,group stage
+1986,T-72,Soviet Union,SUN,4,round of 16
+1986,T-73,Spain,ESP,5,quarter-finals
+1986,T-84,Uruguay,URY,4,round of 16
+1986,T-86,West Germany,DEU,7,final
+1990,T-03,Argentina,ARG,7,final
+1990,T-05,Austria,AUT,3,group stage
+1990,T-06,Belgium,BEL,4,round of 16
+1990,T-09,Brazil,BRA,4,round of 16
+1990,T-11,Cameroon,CMR,5,quarter-finals
+1990,T-16,Colombia,COL,4,round of 16
+1990,T-17,Costa Rica,CRI,4,round of 16
+1990,T-21,Czechoslovakia,CSK,5,quarter-finals
+1990,T-26,Egypt,EGY,3,group stage
+1990,T-28,England,ENG,7,third-place match
+1990,T-41,Italy,ITA,7,third-place match
+1990,T-48,Netherlands,NLD,4,round of 16
+1990,T-60,Republic of Ireland,IRL,5,quarter-finals
+1990,T-61,Romania,ROU,4,round of 16
+1990,T-64,Scotland,SCO,3,group stage
+1990,T-71,South Korea,KOR,3,group stage
+1990,T-72,Soviet Union,SUN,3,group stage
+1990,T-73,Spain,ESP,4,round of 16
+1990,T-74,Sweden,SWE,3,group stage
+1990,T-82,United Arab Emirates,ARE,3,group stage
+1990,T-83,United States,USA,3,group stage
+1990,T-84,Uruguay,URY,4,round of 16
+1990,T-86,West Germany,DEU,7,final
+1990,T-87,Yugoslavia,YUG,5,quarter-finals
+1994,T-03,Argentina,ARG,4,round of 16
+1994,T-06,Belgium,BEL,4,round of 16
+1994,T-07,Bolivia,BOL,3,group stage
+1994,T-09,Brazil,BRA,7,final
+1994,T-10,Bulgaria,BGR,7,third-place match
+1994,T-11,Cameroon,CMR,3,group stage
+1994,T-16,Colombia,COL,3,group stage
+1994,T-31,Germany,DEU,5,quarter-finals
+1994,T-33,Greece,GRC,3,group stage
+1994,T-41,Italy,ITA,7,final
+1994,T-46,Mexico,MEX,4,round of 16
+1994,T-47,Morocco,MAR,3,group stage
+1994,T-48,Netherlands,NLD,5,quarter-finals
+1994,T-50,Nigeria,NGA,4,round of 16
+1994,T-53,Norway,NOR,3,group stage
+1994,T-60,Republic of Ireland,IRL,4,round of 16
+1994,T-61,Romania,ROU,5,quarter-finals
+1994,T-62,Russia,RUS,3,group stage
+1994,T-63,Saudi Arabia,SAU,4,round of 16
+1994,T-71,South Korea,KOR,3,group stage
+1994,T-73,Spain,ESP,5,quarter-finals
+1994,T-74,Sweden,SWE,7,third-place match
+1994,T-75,Switzerland,CHE,4,round of 16
+1994,T-83,United States,USA,4,round of 16
+1998,T-03,Argentina,ARG,5,quarter-finals
+1998,T-05,Austria,AUT,3,group stage
+1998,T-06,Belgium,BEL,3,group stage
+1998,T-09,Brazil,BRA,7,final
+1998,T-10,Bulgaria,BGR,3,group stage
+1998,T-11,Cameroon,CMR,3,group stage
+1998,T-13,Chile,CHL,4,round of 16
+1998,T-16,Colombia,COL,3,group stage
+1998,T-18,Croatia,HRV,7,third-place match
+1998,T-22,Denmark,DNK,5,quarter-finals
+1998,T-28,England,ENG,4,round of 16
+1998,T-30,France,FRA,7,final
+1998,T-31,Germany,DEU,5,quarter-finals
+1998,T-38,Iran,IRN,3,group stage
+1998,T-41,Italy,ITA,5,quarter-finals
+1998,T-43,Jamaica,JAM,3,group stage
+1998,T-44,Japan,JPN,3,group stage
+1998,T-46,Mexico,MEX,4,round of 16
+1998,T-47,Morocco,MAR,3,group stage
+1998,T-48,Netherlands,NLD,7,third-place match
+1998,T-50,Nigeria,NGA,4,round of 16
+1998,T-53,Norway,NOR,4,round of 16
+1998,T-55,Paraguay,PRY,4,round of 16
+1998,T-61,Romania,ROU,4,round of 16
+1998,T-63,Saudi Arabia,SAU,3,group stage
+1998,T-64,Scotland,SCO,3,group stage
+1998,T-70,South Africa,ZAF,3,group stage
+1998,T-71,South Korea,KOR,3,group stage
+1998,T-73,Spain,ESP,3,group stage
+1998,T-79,Tunisia,TUN,3,group stage
+1998,T-83,United States,USA,3,group stage
+1998,T-87,Yugoslavia,YUG,4,round of 16
+2002,T-03,Argentina,ARG,3,group stage
+2002,T-06,Belgium,BEL,4,round of 16
+2002,T-09,Brazil,BRA,7,final
+2002,T-11,Cameroon,CMR,3,group stage
+2002,T-14,China,CHN,3,group stage
+2002,T-17,Costa Rica,CRI,3,group stage
+2002,T-18,Croatia,HRV,3,group stage
+2002,T-22,Denmark,DNK,4,round of 16
+2002,T-25,Ecuador,ECU,3,group stage
+2002,T-28,England,ENG,5,quarter-finals
+2002,T-30,France,FRA,3,group stage
+2002,T-31,Germany,DEU,7,final
+2002,T-41,Italy,ITA,4,round of 16
+2002,T-44,Japan,JPN,4,round of 16
+2002,T-46,Mexico,MEX,4,round of 16
+2002,T-50,Nigeria,NGA,3,group stage
+2002,T-55,Paraguay,PRY,4,round of 16
+2002,T-57,Poland,POL,3,group stage
+2002,T-58,Portugal,PRT,3,group stage
+2002,T-60,Republic of Ireland,IRL,4,round of 16
+2002,T-62,Russia,RUS,3,group stage
+2002,T-63,Saudi Arabia,SAU,3,group stage
+2002,T-65,Senegal,SEN,5,quarter-finals
+2002,T-69,Slovenia,SVN,3,group stage
+2002,T-70,South Africa,ZAF,3,group stage
+2002,T-71,South Korea,KOR,7,third-place match
+2002,T-73,Spain,ESP,5,quarter-finals
+2002,T-74,Sweden,SWE,4,round of 16
+2002,T-79,Tunisia,TUN,3,group stage
+2002,T-80,Turkey,TUR,7,third-place match
+2002,T-83,United States,USA,5,quarter-finals
+2002,T-84,Uruguay,URY,3,group stage
+2006,T-02,Angola,AGO,3,group stage
+2006,T-03,Argentina,ARG,5,quarter-finals
+2006,T-04,Australia,AUS,4,round of 16
+2006,T-09,Brazil,BRA,5,quarter-finals
+2006,T-17,Costa Rica,CRI,3,group stage
+2006,T-18,Croatia,HRV,3,group stage
+2006,T-20,Czech Republic,CZE,3,group stage
+2006,T-25,Ecuador,ECU,4,round of 16
+2006,T-28,England,ENG,5,quarter-finals
+2006,T-30,France,FRA,7,final
+2006,T-31,Germany,DEU,7,third-place match
+2006,T-32,Ghana,GHA,4,round of 16
+2006,T-38,Iran,IRN,3,group stage
+2006,T-41,Italy,ITA,7,final
+2006,T-42,Ivory Coast,CIV,3,group stage
+2006,T-44,Japan,JPN,3,group stage
+2006,T-46,Mexico,MEX,4,round of 16
+2006,T-48,Netherlands,NLD,4,round of 16
+2006,T-55,Paraguay,PRY,3,group stage
+2006,T-57,Poland,POL,3,group stage
+2006,T-58,Portugal,PRT,7,third-place match
+2006,T-63,Saudi Arabia,SAU,3,group stage
+2006,T-67,Serbia and Montenegro,SCG,3,group stage
+2006,T-71,South Korea,KOR,3,group stage
+2006,T-73,Spain,ESP,4,round of 16
+2006,T-74,Sweden,SWE,4,round of 16
+2006,T-75,Switzerland,CHE,4,round of 16
+2006,T-77,Togo,TGO,3,group stage
+2006,T-78,Trinidad and Tobago,TTO,3,group stage
+2006,T-79,Tunisia,TUN,3,group stage
+2006,T-81,Ukraine,UKR,5,quarter-finals
+2006,T-83,United States,USA,3,group stage
+2010,T-01,Algeria,DZA,3,group stage
+2010,T-03,Argentina,ARG,5,quarter-finals
+2010,T-04,Australia,AUS,3,group stage
+2010,T-09,Brazil,BRA,5,quarter-finals
+2010,T-11,Cameroon,CMR,3,group stage
+2010,T-13,Chile,CHL,4,round of 16
+2010,T-22,Denmark,DNK,3,group stage
+2010,T-28,England,ENG,4,round of 16
+2010,T-30,France,FRA,3,group stage
+2010,T-31,Germany,DEU,7,third-place match
+2010,T-32,Ghana,GHA,5,quarter-finals
+2010,T-33,Greece,GRC,3,group stage
+2010,T-35,Honduras,HND,3,group stage
+2010,T-41,Italy,ITA,3,group stage
+2010,T-42,Ivory Coast,CIV,3,group stage
+2010,T-44,Japan,JPN,4,round of 16
+2010,T-46,Mexico,MEX,4,round of 16
+2010,T-48,Netherlands,NLD,7,final
+2010,T-49,New Zealand,NZL,3,group stage
+2010,T-50,Nigeria,NGA,3,group stage
+2010,T-51,North Korea,PRK,3,group stage
+2010,T-55,Paraguay,PRY,5,quarter-finals
+2010,T-58,Portugal,PRT,4,round of 16
+2010,T-66,Serbia,SRB,3,group stage
+2010,T-68,Slovakia,SVK,4,round of 16
+2010,T-69,Slovenia,SVN,3,group stage
+2010,T-70,South Africa,ZAF,3,group stage
+2010,T-71,South Korea,KOR,4,round of 16
+2010,T-73,Spain,ESP,7,final
+2010,T-75,Switzerland,CHE,3,group stage
+2010,T-83,United States,USA,4,round of 16
+2010,T-84,Uruguay,URY,7,third-place match
+2014,T-01,Algeria,DZA,4,round of 16
+2014,T-03,Argentina,ARG,7,final
+2014,T-04,Australia,AUS,3,group stage
+2014,T-06,Belgium,BEL,5,quarter-finals
+2014,T-08,Bosnia and Herzegovina,BIH,3,group stage
+2014,T-09,Brazil,BRA,7,third-place match
+2014,T-11,Cameroon,CMR,3,group stage
+2014,T-13,Chile,CHL,4,round of 16
+2014,T-16,Colombia,COL,5,quarter-finals
+2014,T-17,Costa Rica,CRI,5,quarter-finals
+2014,T-18,Croatia,HRV,3,group stage
+2014,T-25,Ecuador,ECU,3,group stage
+2014,T-28,England,ENG,3,group stage
+2014,T-30,France,FRA,5,quarter-finals
+2014,T-31,Germany,DEU,7,final
+2014,T-32,Ghana,GHA,3,group stage
+2014,T-33,Greece,GRC,4,round of 16
+2014,T-35,Honduras,HND,3,group stage
+2014,T-38,Iran,IRN,3,group stage
+2014,T-41,Italy,ITA,3,group stage
+2014,T-42,Ivory Coast,CIV,3,group stage
+2014,T-44,Japan,JPN,3,group stage
+2014,T-46,Mexico,MEX,4,round of 16
+2014,T-48,Netherlands,NLD,7,third-place match
+2014,T-50,Nigeria,NGA,4,round of 16
+2014,T-58,Portugal,PRT,3,group stage
+2014,T-62,Russia,RUS,3,group stage
+2014,T-71,South Korea,KOR,3,group stage
+2014,T-73,Spain,ESP,3,group stage
+2014,T-75,Switzerland,CHE,4,round of 16
+2014,T-83,United States,USA,4,round of 16
+2014,T-84,Uruguay,URY,4,round of 16
+2018,T-03,Argentina,ARG,4,round of 16
+2018,T-04,Australia,AUS,3,group stage
+2018,T-06,Belgium,BEL,7,third-place match
+2018,T-09,Brazil,BRA,5,quarter-finals
+2018,T-16,Colombia,COL,4,round of 16
+2018,T-17,Costa Rica,CRI,3,group stage
+2018,T-18,Croatia,HRV,7,final
+2018,T-22,Denmark,DNK,4,round of 16
+2018,T-26,Egypt,EGY,3,group stage
+2018,T-28,England,ENG,7,third-place match
+2018,T-30,France,FRA,7,final
+2018,T-31,Germany,DEU,3,group stage
+2018,T-37,Iceland,ISL,3,group stage
+2018,T-38,Iran,IRN,3,group stage
+2018,T-44,Japan,JPN,4,round of 16
+2018,T-46,Mexico,MEX,4,round of 16
+2018,T-47,Morocco,MAR,3,group stage
+2018,T-50,Nigeria,NGA,3,group stage
+2018,T-54,Panama,PAN,3,group stage
+2018,T-56,Peru,PER,3,group stage
+2018,T-57,Poland,POL,3,group stage
+2018,T-58,Portugal,PRT,4,round of 16
+2018,T-62,Russia,RUS,5,quarter-finals
+2018,T-63,Saudi Arabia,SAU,3,group stage
+2018,T-65,Senegal,SEN,3,group stage
+2018,T-66,Serbia,SRB,3,group stage
+2018,T-71,South Korea,KOR,3,group stage
+2018,T-73,Spain,ESP,4,round of 16
+2018,T-74,Sweden,SWE,5,quarter-finals
+2018,T-75,Switzerland,CHE,4,round of 16
+2018,T-79,Tunisia,TUN,3,group stage
+2018,T-84,Uruguay,URY,5,quarter-finals
+2022,T-03,Argentina,ARG,7,final
+2022,T-04,Australia,AUS,4,round of 16
+2022,T-06,Belgium,BEL,3,group stage
+2022,T-09,Brazil,BRA,5,quarter-finals
+2022,T-11,Cameroon,CMR,3,group stage
+2022,T-12,Canada,CAN,3,group stage
+2022,T-17,Costa Rica,CRI,3,group stage
+2022,T-18,Croatia,HRV,7,third-place match
+2022,T-22,Denmark,DNK,3,group stage
+2022,T-25,Ecuador,ECU,3,group stage
+2022,T-28,England,ENG,5,quarter-finals
+2022,T-30,France,FRA,7,final
+2022,T-31,Germany,DEU,3,group stage
+2022,T-32,Ghana,GHA,3,group stage
+2022,T-38,Iran,IRN,3,group stage
+2022,T-44,Japan,JPN,4,round of 16
+2022,T-46,Mexico,MEX,3,group stage
+2022,T-47,Morocco,MAR,7,third-place match
+2022,T-48,Netherlands,NLD,5,quarter-finals
+2022,T-57,Poland,POL,4,round of 16
+2022,T-58,Portugal,PRT,5,quarter-finals
+2022,T-59,Qatar,QAT,3,group stage
+2022,T-63,Saudi Arabia,SAU,3,group stage
+2022,T-65,Senegal,SEN,4,round of 16
+2022,T-66,Serbia,SRB,3,group stage
+2022,T-71,South Korea,KOR,4,round of 16
+2022,T-73,Spain,ESP,4,round of 16
+2022,T-75,Switzerland,CHE,4,round of 16
+2022,T-79,Tunisia,TUN,3,group stage
+2022,T-83,United States,USA,4,round of 16
+2022,T-84,Uruguay,URY,3,group stage
+2022,T-85,Wales,WAL,3,group stage
