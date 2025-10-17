@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>FIFA World Cup Qualifiers — Timeline Map</title>
+<title>FIFA Qualifiers — Timeline Map (D3 only)</title>
 <style>
   body {
     font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -139,4 +139,321 @@
 <script>
 /* ======== Configuration ======== */
 
-// Path to the CSV you provided (must be
+// Path to the CSV you provided (must be reachable from the page).
+const qualifiersCsv = "fifa_qualifiers.csv";
+
+// Public GeoJSON (change to a local file if you prefer):
+// If you want to use a local world.geojson, set the URL to "./world.geojson"
+const worldGeoJSONUrl = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
+
+// Visual colors
+const colorActive = "#0b63ff";    // qualified this year (bright)
+const colorPrior  = "#9fcfff";   // qualified previously (dim)
+const colorNone   = "#efefef";   // never qualified / default
+const strokeColor = "#cfd8e3";
+
+/* ======== Name overrides (for mismatches) ========
+   If the CSV names don't match GeoJSON country names, add entries:
+   "CSV name": "GeoJSON name"
+   Example: "USA": "United States of America"
+*/
+const nameOverrides = {
+  "United States": "United States of America",
+  "USA": "United States of America",
+  "Ivory Coast": "Côte d'Ivoire",
+  "South Korea": "Korea, Republic of",
+  "North Korea": "Korea, Democratic People's Republic of",
+  "Korea Republic": "Korea, Republic of",
+  "Korea DPR": "Korea, Democratic People's Republic of",
+  "Soviet Union": "Russian Federation", // historical; may not map perfectly
+  "Yugoslavia": "Serbia", // approximate mapping; update as needed
+  "Czech Republic": "Czechia",
+  // add more overrides here if the console shows unmatched names
+};
+
+/* ======== Boilerplate / DOM ======== */
+
+const svg = d3.select("#mapSvg");
+const width = +svg.attr("viewBox").split(' ')[2];
+const height = +svg.attr("viewBox").split(' ')[3];
+
+const tooltip = d3.select("#tooltip");
+const yearSlider = d3.select("#yearSlider");
+const yearLabel = d3.select("#yearLabel");
+const playBtn = d3.select("#playBtn");
+
+let worldData, qualifiersData;
+let allYears = [];
+let firstQualification = {}; // country -> first year they qualified
+let qualifiedByYear = d3.group([], d => d.tournament_year); // will be replaced after loading
+
+/* ======== Projection & path ======== */
+const projection = d3.geoMercator()
+  .scale(160)
+  .translate([width / 2, height / 1.55]);
+
+const path = d3.geoPath().projection(projection);
+
+/* ======== Load Data ======== */
+Promise.all([
+  d3.json(worldGeoJSONUrl),
+  d3.csv(qualifiersCsv, d => ({
+    tournament_year: +d.tournament_year,
+    team_name: d.team_name && d.team_name.trim(),
+    team_code: d.team_code && d.team_code.trim()
+  }))
+]).then(([geo, qdata]) => {
+  worldData = geo;
+  qualifiersData = qdata.filter(d => d.team_name && !isNaN(d.tournament_year));
+
+  // Precompute year list (sorted unique)
+  allYears = Array.from(new Set(qualifiersData.map(d => d.tournament_year))).sort((a,b)=>a-b);
+  if(allYears.length === 0){
+    console.error("No years found in CSV. Make sure field 'tournament_year' exists.");
+    return;
+  }
+
+  // If slider min/max are not already set to the dataset range, set them
+  const minYear = d3.min(allYears);
+  const maxYear = d3.max(allYears);
+  yearSlider.attr("min", minYear).attr("max", maxYear).attr("step", 1).property("value", minYear);
+  yearLabel.text(minYear);
+
+  // Group qualifiers by year
+  qualifiedByYear = d3.group(qualifiersData, d => d.tournament_year);
+
+  // Compute first qualification year per country (for tooltip)
+  qualifiersData.forEach(d => {
+    const name = d.team_name;
+    if (!(name in firstQualification) || d.tournament_year < firstQualification[name]) {
+      firstQualification[name] = d.tournament_year;
+    }
+  });
+
+  // Draw base map
+  drawMap();
+  // Initial render for starting year
+  updateMap(+yearSlider.property("value"));
+}).catch(err => {
+  console.error("Error loading data:", err);
+  alert("Failed to load data. Check console for details.");
+});
+
+/* ======== Draw Map ======== */
+function drawMap() {
+  // Draw countries
+  svg.append("g")
+    .attr("class", "countries")
+    .selectAll("path")
+    .data(worldData.features)
+    .join("path")
+      .attr("d", path)
+      .attr("fill", colorNone)
+      .attr("stroke", strokeColor)
+      .attr("stroke-width", 0.6)
+      .on("mouseenter", onCountryEnter)
+      .on("mousemove", onCountryMove)
+      .on("mouseleave", onCountryLeave);
+}
+
+/* ======== Matching helper: geoCountryNameFor(teamName) ========
+   Tries multiple strategies to map a team name from the CSV to a GeoJSON country:
+   1) override table
+   2) exact match with geo.properties.name
+   3) case-insensitive normalized match (strip punctuation, diacritics)
+*/
+function normalizeName(s){
+  if(!s) return "";
+  return s.toLowerCase()
+    .replace(/\(.*\)/g, "")      // remove parenthetical notes
+    .replace(/[^a-z0-9 ]/gi, "") // remove punctuation
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function findGeoFeatureByTeam(teamName){
+  if(!teamName) return null;
+  // 1) overrides
+  if(nameOverrides[teamName]) {
+    const target = nameOverrides[teamName];
+    const f = worldData.features.find(d => d.properties && (d.properties.name === target || d.properties.NAME === target));
+    if(f) return f;
+    // fallback: normalized match on override target
+    const normTarget = normalizeName(target);
+    return worldData.features.find(d => normalizeName(d.properties && (d.properties.name || d.properties.NAME)) === normTarget) || null;
+  }
+
+  // 2) try exact property match
+  let f = worldData.features.find(d => d.properties && (d.properties.name === teamName || d.properties.NAME === teamName));
+  if(f) return f;
+
+  // 3) normalized name matching
+  const norm = normalizeName(teamName);
+  f = worldData.features.find(d => normalizeName(d.properties && (d.properties.name || d.properties.NAME)) === norm);
+  if(f) return f;
+
+  // 4) loose substring match (rare fallback)
+  f = worldData.features.find(d => {
+    const n = normalizeName(d.properties && (d.properties.name || d.properties.NAME));
+    return n && (n.indexOf(norm) !== -1 || norm.indexOf(n) !== -1);
+  });
+  return f || null;
+}
+
+/* ======== Update map for a selected year ======== */
+function updateMap(year) {
+  yearLabel.text(year);
+  // Build sets:
+  // qualifiedThisYear: set of country names that appear in CSV for this year
+  const rowsThisYear = qualifiedByYear.get(year) || [];
+  const qualifiedThisYear = new Set(rowsThisYear.map(d => d.team_name));
+
+  // qualifiedUpToYear: all teams with tournament_year <= year
+  const qualifiedUpToYear = new Set(
+    qualifiersData.filter(d => d.tournament_year <= year).map(d => d.team_name)
+  );
+
+  // We'll map country features to these sets using team_name -> geo match.
+  // To avoid repeated searching, build a featureName => matchedTeamName mapping once:
+  const featureToTeam = new Map(); // featureIndex -> teamName (or null)
+
+  // Also gather unmatched team names (for console reporting)
+  const unmatchedTeams = new Set();
+
+  // For each feature (country) we decide fill:
+  svg.selectAll(".countries path")
+    .each(function(d){
+      // find if this geo feature matches any team in our list (either this year or prior)
+      // efficient approach: check list of known qualifiedUpToYear team names and test mapping
+      let matchedTeam = null;
+      // We'll check both qualifiedUpToYear and qualifiedThisYear; but qualifiedUpToYear is superset
+      for (let teamName of qualifiedUpToYear) {
+        const f = findGeoFeatureByTeam(teamName);
+        if (f && f === d) { matchedTeam = teamName; break; }
+      }
+      // If not matched from prior set, try direct this-year set (rare)
+      if (!matchedTeam) {
+        for (let teamName of qualifiedThisYear) {
+          const f = findGeoFeatureByTeam(teamName);
+          if (f && f === d) { matchedTeam = teamName; break; }
+        }
+      }
+      // store matching result on DOM for tooltip usage
+      d.__matchedTeam = matchedTeam; // may be null
+    })
+    .transition()
+    .duration(350)
+    .attr("fill", d => {
+      const matched = d.__matchedTeam;
+      if (matched && qualifiedThisYear.has(matched)) return colorActive;
+      if (matched && qualifiedUpToYear.has(matched)) return colorPrior;
+      return colorNone;
+    });
+
+  // Report unmatched team names (only once per update) to help user fix nameOverrides
+  // compute set of all team names referenced that we couldn't match to any geo feature
+  unmatchedTeams.clear();
+  qualifiedUpToYear.forEach(teamName => {
+    // try to find a feature — if none, mark as unmatched
+    if (!findGeoFeatureByTeam(teamName)) unmatchedTeams.add(teamName);
+  });
+  if(unmatchedTeams.size > 0){
+    console.warn("Unmatched team names (add to nameOverrides if you want them matched):", Array.from(unmatchedTeams).slice(0,200));
+  }
+}
+
+/* ======== Tooltip handlers ======== */
+function onCountryEnter(event, d) {
+  const matched = d.__matchedTeam;
+  const name = d.properties && (d.properties.name || d.properties.NAME) || "Unknown";
+  let html = `<strong>${name}</strong>`;
+  if (matched) {
+    html += `<div>First qualification: ${firstQualification[matched]}</div>`;
+    html += `<div style="margin-top:6px;color:#555;font-size:12px">Team name in CSV: ${matched}</div>`;
+  } else {
+    // Check if this country has ever appeared in CSV under another name: try reverse lookup by scanning qualifiers
+    const maybe = findPossibleTeamNamesForFeature(d);
+    if (maybe.length) {
+      html += `<div style="margin-top:6px;color:#555;font-size:12px">Possible CSV names: ${maybe.slice(0,5).join(", ")}</div>`;
+    } else {
+      html += `<div style="margin-top:6px;color:#777;font-size:12px">No qualification record in CSV</div>`;
+    }
+  }
+  tooltip.html(html).style("display", "block").style("opacity", 1);
+}
+
+function onCountryMove(event) {
+  const [mx, my] = d3.pointer(event);
+  tooltip.style("left", (mx + 16) + "px").style("top", (my + 16) + "px");
+}
+
+function onCountryLeave() {
+  tooltip.style("display", "none");
+}
+
+/* Reverse helper: try to suggest CSV names that might map to this geo feature */
+function findPossibleTeamNamesForFeature(feat){
+  const candidates = [];
+  for(const row of qualifiersData){
+    const f = findGeoFeatureByTeam(row.team_name);
+    if (f === feat) candidates.push(row.team_name);
+  }
+  return Array.from(new Set(candidates));
+}
+
+/* ======== Slider + play controls ======== */
+let playTimer = null;
+yearSlider.on("input", function(){
+  const year = +this.value;
+  updateMap(year);
+});
+
+playBtn.on("click", function(){
+  const pressed = this.getAttribute("aria-pressed") === "true";
+  if(pressed){
+    stopPlay();
+  } else {
+    startPlay();
+  }
+});
+
+function startPlay(){
+  const minY = +yearSlider.attr("min");
+  const maxY = +yearSlider.attr("max");
+  let current = +yearSlider.property("value");
+  playBtn.attr("aria-pressed", "true").text("Pause");
+  playTimer = setInterval(() => {
+    current++;
+    if(current > maxY) current = minY;
+    yearSlider.property("value", current);
+    updateMap(current);
+  }, 900);
+}
+
+function stopPlay(){
+  playBtn.attr("aria-pressed", "false").text("Play");
+  if(playTimer) {
+    clearInterval(playTimer);
+    playTimer = null;
+  }
+}
+
+/* ======== Small UX niceties: keyboard left/right to change year ======== */
+window.addEventListener("keydown", (e) => {
+  if(e.key === "ArrowLeft" || e.key === "ArrowDown"){
+    e.preventDefault();
+    const min = +yearSlider.attr("min");
+    const v = Math.max(min, +yearSlider.property("value") - 1);
+    yearSlider.property("value", v);
+    updateMap(v);
+  } else if (e.key === "ArrowRight" || e.key === "ArrowUp"){
+    e.preventDefault();
+    const max = +yearSlider.attr("max");
+    const v = Math.min(max, +yearSlider.property("value") + 1);
+    yearSlider.property("value", v);
+    updateMap(v);
+  }
+});
+</script>
+</body>
+</html>
