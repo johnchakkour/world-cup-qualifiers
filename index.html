@@ -1,341 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>FIFA Qualifiers — Timeline Map (D3 only)</title>
-<style>
-  body {
-    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background: #f7f8fb;
-    color: #111;
-  }
-  header {
-    padding: 18px 24px 6px 24px;
-  }
-  h1 { margin: 0; font-size: 20px; font-weight: 600; }
-  p.lead { margin: 6px 0 0 0; color: #555; font-size: 13px; }
 
-  #viz {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px;
-  }
+	<head>
 
-  svg {
-    width: 100%;
-    height: 100%;
-    max-height: 720px;
-    max-width: 1200px;
-    box-shadow: 0 6px 18px rgba(20,30,60,0.08);
-    background: linear-gradient(#ffffff,#fbfdff);
-    border-radius: 6px;
-  }
+		<meta charset="utf-8">
+		<title>FIFA Qualifiers — Timeline</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<script src="https://d3js.org/d3.v7.min.js"></script>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@200..900&display=swap" rel="stylesheet">
 
-  .controls {
-    padding: 12px 22px 22px 22px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+	</head>
 
-  .slider-wrap { flex: 1; display:flex; align-items:center; gap:12px; }
-  input[type="range"] { width: 100%; }
-  .year-label {
-    min-width: 70px;
-    text-align: center;
-    font-weight: 600;
-    background: #fff;
-    padding: 6px 10px;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(10,20,40,0.06);
-  }
+	<body>
 
-  button {
-    background: #0b63ff;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  button[aria-pressed="true"] { background: #0056d6; }
+		<h1>A History of <span id="fifa">FIFA</span>
+				<span id="world">World</span> <span id="cup">Cup</span> Qualifiers &#9917;</h1>
+		<p class="lead">Slide through tournament years, from 1930 to the present.
+				A country lights up if it qualified that year; color indicates its performance in the tournament.</p>
 
-  .legend {
-    margin-left: 18px;
-    display:flex;
-    gap:10px;
-    align-items:center;
-    color:#444;
-    font-size:13px;
-  }
+		<div id="viz">
+			<div style="position:relative; width:100%; max-width:1200px;">
+				<svg id="mapSvg" viewBox="0 0 1200 650" preserveAspectRatio="xMidYMid meet"></svg>
+				<div class="tooltip" id="tooltip"></div>
+			</div>
+		</div>
 
-  .legend .sw {
-    width:14px; height:10px; border-radius:3px; display:inline-block; margin-right:6px; box-shadow:0 1px 3px rgba(0,0,0,0.08);
-  }
+		<div class="controls">
+			<div class="slider-wrap">
+				<input id="yearSlider" type="range" min="1930" max="2018" step="1" value="1930" />
+				<div class="year-label" id="yearLabel">1930</div>
+			</div>
 
-  .tooltip {
-    position: absolute;
-    pointer-events: none;
-    background: rgba(255,255,255,0.98);
-    padding: 8px 10px;
-    border-radius: 6px;
-    box-shadow: 0 6px 20px rgba(20,30,60,0.12);
-    font-size:13px;
-    color:#111;
-    display:none;
-    z-index: 20;
-  }
+			<button id="playBtn" aria-pressed="false">Play</button>
 
-  footer {
-    font-size: 12px;
-    color: #666;
-    padding: 8px 22px 20px 22px;
-  }
-  a.small { color:#0b63ff; text-decoration:none; }
-</style>
-</head>
-<body>
+			<div class="legend" aria-hidden="true">
+				<div><span class="sw" style="background:#dbe9ff"></span>Qualified this year</div>
+				<div><span class="sw" style="background:#bfe0ff"></span>Qualified previously</div>
+				<div><span class="sw" style="background:#efefef"></span>Never qualified</div>
+			</div>
+		</div>
 
-<header>
-  <h1>FIFA World Cup — Qualification Timeline</h1>
-  <p class="lead">Slide through tournament years. Bright = qualified this year. Dim = qualified before or earlier. Neutral = not qualified (yet).</p>
-</header>
+		<script src="js/main.js"></script>
 
-<div id="viz">
-  <div style="position:relative; width:100%; max-width:1200px;">
-    <svg id="mapSvg" viewBox="0 0 1200 650" preserveAspectRatio="xMidYMid meet"></svg>
-    <div class="tooltip" id="tooltip"></div>
-  </div>
-</div>
-
-<div class="controls">
-  <div class="slider-wrap">
-    <input id="yearSlider" type="range" min="1930" max="2018" step="1" value="1930" />
-    <div class="year-label" id="yearLabel">1930</div>
-  </div>
-
-  <button id="playBtn" aria-pressed="false">Play</button>
-
-  <div class="legend" aria-hidden="true">
-    <div><span class="sw" style="background:#dbe9ff;border:1px solid rgba(11,99,255,0.08)"></span>Qualified this year</div>
-    <div><span class="sw" style="background:#bfe0ff"></span>Qualified previously</div>
-    <div><span class="sw" style="background:#efefef"></span>Never qualified</div>
-  </div>
-</div>
-
-<footer>
-  Data: <code>fifa_qualifiers.csv</code>. World geometry: public GeoJSON. If any countries are unmatched you will see console warnings; add those mappings in the <code>nameOverrides</code> object in the script.
-</footer>
-
-<script src="https://unpkg.com/d3@7/dist/d3.min.js"></script>
-<script>
-// =============================================================
-// CONFIGURATION
-// =============================================================
-
-const qualifiersCsv = "fifa_qualifiers.csv";
-const worldGeoJSONUrl = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
-
-const colorScale = {
-  "winner": "#ffcc00",
-  "final": "#1f57e0",
-  "third-place match": "#2c6aff",
-  "semi-finals": "#3480ff",
-  "quarter-finals": "#64b5ff",
-  "round of 16": "#9fcfff",
-  "group stage": "#d6e4ff",
-  "final round": "#7bb8ff",
-  "second group stage": "#8fc5ff",
-  "default": "#efefef"
-};
-
-const strokeColor = "#cfd8e3";
-
-const nameOverrides = {
-  "United States": "United States of America",
-  "USA": "United States of America",
-  "Ivory Coast": "Côte d'Ivoire",
-  "South Korea": "Korea, Republic of",
-  "North Korea": "Korea, Democratic People's Republic of",
-  "Korea Republic": "Korea, Republic of",
-  "Korea DPR": "Korea, Democratic People's Republic of",
-  "Czech Republic": "Czechia",
-  "Soviet Union": "Russian Federation",
-  "Yugoslavia": "Serbia"
-};
-
-// =============================================================
-// D3 SETUP
-// =============================================================
-
-const svg = d3.select("#mapSvg");
-const width = +svg.attr("viewBox").split(' ')[2];
-const height = +svg.attr("viewBox").split(' ')[3];
-
-const tooltip = d3.select("#tooltip");
-const yearSlider = d3.select("#yearSlider");
-const yearLabel = d3.select("#yearLabel");
-const playBtn = d3.select("#playBtn");
-
-let worldData, qualifiersData, allYears;
-let qualifiedByYear = new Map();
-
-const projection = d3.geoMercator()
-  .scale(160)
-  .translate([width / 2, height / 1.55]);
-
-const path = d3.geoPath().projection(projection);
-
-// =============================================================
-// DATA LOADING
-// =============================================================
-
-Promise.all([
-  d3.json(worldGeoJSONUrl),
-  d3.csv(qualifiersCsv, d => ({
-    year: +d.tournament_year,
-    country: d.team_name && d.team_name.trim(),
-    performance: d.performance && d.performance.trim().toLowerCase()
-  }))
-]).then(([geo, data]) => {
-  worldData = geo;
-  qualifiersData = data.filter(d => d.country && !isNaN(d.year));
-
-  allYears = Array.from(new Set(qualifiersData.map(d => d.year))).sort((a,b) => a-b);
-
-  // Configure slider for 4-year increments
-  yearSlider.attr("min", allYears[0])
-            .attr("max", allYears[allYears.length - 1])
-            .attr("step", 4)
-            .property("value", allYears[0]);
-
-  yearLabel.text(allYears[0]);
-
-  qualifiedByYear = d3.group(qualifiersData, d => d.year);
-
-  drawMap();
-  updateMap(+yearSlider.property("value"));
-});
-
-// =============================================================
-// DRAW & UPDATE MAP
-// =============================================================
-
-function drawMap() {
-  svg.append("g")
-    .attr("class", "countries")
-    .selectAll("path")
-    .data(worldData.features)
-    .join("path")
-    .attr("d", path)
-    .attr("fill", colorScale.default)
-    .attr("stroke", strokeColor)
-    .attr("stroke-width", 0.6)
-    .on("mouseenter", showTooltip)
-    .on("mousemove", moveTooltip)
-    .on("mouseleave", hideTooltip);
-}
-
-function updateMap(year) {
-  yearLabel.text(year);
-
-  const yearData = qualifiedByYear.get(year) || [];
-
-  svg.selectAll(".countries path")
-    .transition()
-    .duration(500)
-    .attr("fill", d => {
-      const match = yearData.find(r => matchCountry(d, r.country));
-      if (match) {
-        const perf = match.performance;
-        return colorScale[perf] || colorScale.default;
-      }
-      return colorScale.default;
-    });
-}
-
-// =============================================================
-// MATCHING HELPERS
-// =============================================================
-
-function normalize(s) {
-  return s.toLowerCase().replace(/[^a-z0-9 ]/g, "").trim();
-}
-
-function matchCountry(feature, name) {
-  if (!name) return false;
-  const geoName = feature.properties.name || feature.properties.NAME;
-  const override = nameOverrides[name] || name;
-  return normalize(geoName) === normalize(override);
-}
-
-// =============================================================
-// TOOLTIP HANDLERS
-// =============================================================
-
-function showTooltip(event, d) {
-  const currentYear = +yearSlider.property("value");
-  const yearData = qualifiedByYear.get(currentYear) || [];
-  const match = yearData.find(r => matchCountry(d, r.country));
-  const countryName = d.properties.name;
-  let html = `<strong>${countryName}</strong>`;
-  if (match) {
-    html += `<div><em>${match.performance.replace(/\b\w/g, c => c.toUpperCase())}</em></div>`;
-  } else {
-    html += `<div>No qualification</div>`;
-  }
-  tooltip.html(html).style("display", "block");
-  moveTooltip(event);
-}
-
-function moveTooltip(event) {
-  tooltip.style("left", (event.pageX + 16) + "px")
-         .style("top", (event.pageY + 16) + "px");
-}
-
-function hideTooltip() {
-  tooltip.style("display", "none");
-}
-
-// =============================================================
-// SLIDER + PLAY CONTROLS
-// =============================================================
-
-yearSlider.on("input", function() {
-  updateMap(+this.value);
-});
-
-let playTimer = null;
-
-playBtn.on("click", function() {
-  const playing = this.getAttribute("aria-pressed") === "true";
-  if (playing) stopPlay();
-  else startPlay();
-});
-
-function startPlay() {
-  playBtn.attr("aria-pressed", "true").text("Pause");
-  let currentIndex = allYears.indexOf(+yearSlider.property("value"));
-  playTimer = setInterval(() => {
-    currentIndex = (currentIndex + 1) % allYears.length;
-    const year = allYears[currentIndex];
-    yearSlider.property("value", year);
-    updateMap(year);
-  }, 1200);
-}
-
-function stopPlay() {
-  playBtn.attr("aria-pressed", "false").text("Play");
-  clearInterval(playTimer);
-}
-</script>
-</body>
+	</body>
+	
 </html>
