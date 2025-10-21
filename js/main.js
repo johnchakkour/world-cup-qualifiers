@@ -1,3 +1,4 @@
+
 const qualifiersCsv = "fifa_qualifiers.csv";
 const worldGeoJSONUrl = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
 
@@ -173,7 +174,7 @@ playBtn.on("click", function() {
 });
 
 function startPlay() {
-    playBtn.attr("aria-pressed", "true").text("Pause");
+    playBtn.attr("aria-pressed", "true").text("\u23f8");
     let currentIndex = allYears.indexOf(+yearSlider.property("value"));
     playTimer = setInterval(() => {
         currentIndex = (currentIndex + 1) % allYears.length;
@@ -184,6 +185,6 @@ function startPlay() {
 }
 
 function stopPlay() {
-    playBtn.attr("aria-pressed", "false").text("Play");
+    playBtn.attr("aria-pressed", "false").text("\u25b6");
     clearInterval(playTimer);
 }
