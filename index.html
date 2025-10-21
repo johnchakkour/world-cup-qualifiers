@@ -19,8 +19,7 @@
 
 		<h1>A History of <span id="fifa">FIFA</span>
 				<span id="world">World</span> <span id="cup">Cup</span> Qualifiers &#9917;</h1>
-		<p class="lead">Slide through tournament years, from 1930 to the present.
-				A country lights up if it qualified that year; color indicates its performance in the tournament.</p>
+		<p class="lead">Slide through tournament years, from 1930 to the present.</p>
 
 		<div id="viz">
 			<div style="position:relative; width:100%; max-width:1200px;">
@@ -30,12 +29,12 @@
 		</div>
 
 		<div class="controls">
+			<button id="playBtn" aria-pressed="false">&#9654;</button>
+			
 			<div class="slider-wrap">
 				<input id="yearSlider" type="range" min="1930" max="2018" step="1" value="1930" />
-				<div class="year-label" id="yearLabel">1930</div>
+				<div id="yearLabel">1930</div>
 			</div>
-
-			<button id="playBtn" aria-pressed="false">Play</button>
 
 			<div class="legend" aria-hidden="true">
 				<div><span class="sw" style="background:#dbe9ff"></span>Qualified this year</div>
