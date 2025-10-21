@@ -5,7 +5,7 @@ body {
     margin: 0;
 }
 
-h1 { color: azure; font-size: 4vh; font-weight: 700; margin: 3vh 0 0 5vh; }
+h1 { color: rgba(240, 255, 255, 0.85); font-size: 4vh; font-weight: 700; margin: 3vh 0 0 5vh; }
 
 #fifa { color: cornflowerblue;}
 
@@ -13,7 +13,7 @@ h1 { color: azure; font-size: 4vh; font-weight: 700; margin: 3vh 0 0 5vh; }
 
 #cup { color: lightgreen}
 
-.lead { color: whitesmoke; font-size: 2.5vh; margin: 1.5vh 0 0 5vh; }
+.lead { color: rgba(240, 255, 255, 0.8); font-size: 2.5vh; margin: 1.5vh 0 0 5vh; }
 
 #viz {
     align-items: center;
@@ -43,27 +43,27 @@ svg {
 
 input[type="range"] { width: 100%; }
 
-.year-label {
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(10,20,40,0.06);
+#yearLabel {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 2vh;
+    color: rgb(200, 200, 200);
     font-weight: 600;
-    min-width: 70px;
-    padding: 6px 10px;
+    padding: 1vh 2vh;
     text-align: center;
+    -webkit-backdrop-filter: blur(20px);
 }
 
 button {
-    background: #0b63ff;
-    border: none;
-    border-radius: 6px;
-    color: #fff;
-    cursor: pointer;
-    font-weight: 600;
-    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 2vh;
+    color: rgb(200, 200, 200);
+    padding: 1vh 2vh;
+    -webkit-backdrop-filter: blur(20px);
 }
 
-button[aria-pressed="true"] { background: #0056d6; }
+button[aria-pressed="true"] { background: rgba(255, 0, 255, 0.15); padding: 1vh 2.25vh; }
 
 .legend {
     align-items:center;
