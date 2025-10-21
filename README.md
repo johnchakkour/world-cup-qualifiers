@@ -1,5 +1,5 @@
-# A History of FIFA World Cup Qualifiers
-This visualization consists of a world map showing which countries have qualified to the World Cup over the years.
+# A History of the FIFA World Cup
+World map showing which countries have qualified to the World Cup over the years and their performance.
 
 ## Issues to fix
 
