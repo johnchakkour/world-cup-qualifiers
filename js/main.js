@@ -1,17 +1,16 @@
-
 const qualifiersCsv = "fifa_qualifiers.csv";
 const worldGeoJSONUrl = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
 
 const colorScale = {
-    "winner": "gold",
-    "final": "silver",
-    "third-place match": "#2c6aff",
-    "semi-finals": "#3480ff",
-    "quarter-finals": "#64b5ff",
-    "round of 16": "#9fcfff",
-    "group stage": "#d6e4ff",
-    "final round": "#7bb8ff",
-    "second group stage": "#8fc5ff",
+    "Champion": "#fef720",
+    "Final": "silver",
+    "Third place": "#9bfa24",
+    "Semi-finals": "#1bf118",
+    "Quarter-finals": "#31db92",
+    "Round of 16": "#27bbe0",
+    "Group stage": "#1c6ff8",
+    "Final round": "#1bf118",
+    "Second group stage": "#31db92",
     "default": "transparent"
 };
 
@@ -56,7 +55,9 @@ Promise.all([
         d3.csv(qualifiersCsv, d => ({
             year: +d.tournament_year,
             country: d.team_name && d.team_name.trim(),
-            performance: d.performance && d.performance.trim().toLowerCase() } ))
+            performance: d.performance && d.performance.trim(),
+            topScorer: d.top_scorer && d.top_scorer.trim(),
+            topScorerGoals: d.top_scorer_goals && d.top_scorer_goals.trim() } ))
 
     ]).then(([geo, data]) => {
         worldData = geo;
@@ -141,7 +142,7 @@ function showTooltip(event, d) {
 
     let html = `<strong>${countryName}</strong>`;
     if (match) {
-        html += `<div><em>${match.performance.replace(/\b\w/g, c => c.toUpperCase())}</em></div>`;
+        html += `<div><em>${match.performance}</em></div>`;
     } else {
         html += `<div>Not qualified</div>`;
     }
