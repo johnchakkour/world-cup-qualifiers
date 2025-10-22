@@ -1,3 +1,4 @@
+
 const qualifiersCsv = "fifa_qualifiers.csv";
 const worldGeoJSONUrl = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
 
@@ -152,7 +153,7 @@ function showTooltip(event, d) {
 
 function moveTooltip(event) {
     tooltip.style("left", (event.pageX - 100) + "px")
-            .style("top", (event.pageY - 90) + "px");
+            .style("top", (event.pageY - 120) + "px");
 }
 
 function hideTooltip() {
