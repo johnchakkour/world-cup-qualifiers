@@ -83,17 +83,17 @@ button[aria-pressed="true"] { background: rgba(255, 0, 255, 0.15); padding: 1vh 
 }
 
 .tooltip {
-    background: rgba(255,255,255,0.98);
-    border-radius: 6px;
-    box-shadow: 0 6px 20px rgba(20,30,60,0.12);
-    color:#111;
-    display:none;
-    font-size:13px;
-    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 2vh;
+    color: rgb(200, 200, 200);
+    padding: 1vh 1.5vh;
     pointer-events: none;
     position: absolute;
+    -webkit-backdrop-filter: blur(20px);
     z-index: 20;
 }
+
 
 footer {
     color: #666;
