@@ -18,11 +18,6 @@ const colorScale = {
 const strokeColor = "dimgrey";
 
 const nameOverrides = {
-    "South Korea": "Korea, Republic of",
-    "North Korea": "Korea, Democratic People's Republic of",
-    "Korea Republic": "Korea, Republic of",
-    "Korea DPR": "Korea, Democratic People's Republic of",
-    "Czech Republic": "Czechia",
     "Soviet Union": "Russian Federation",
     "Yugoslavia": "Serbia"
 };
