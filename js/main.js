@@ -18,7 +18,6 @@ const colorScale = {
 const strokeColor = "dimgrey";
 
 const nameOverrides = {
-    "Ivory Coast": "Côte d'Ivoire",
     "South Korea": "Korea, Republic of",
     "North Korea": "Korea, Democratic People's Republic of",
     "Korea Republic": "Korea, Republic of",
