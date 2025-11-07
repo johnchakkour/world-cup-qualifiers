@@ -1,19 +1,19 @@
 body {
-    background: rgb(0, 0, 70);
+    background: whitesmoke;
     flex-direction: column;
     font-family: "Mona Sans", "Segoe UI", "Helvetica Neue", sans-serif;
     margin: 0;
 }
 
-h1 { color: rgba(240, 255, 255, 0.85); font-size: 4vh; font-weight: 700; margin: 3vh 0 0 5vh; }
+h1 { color: dimgrey; font-size: 4vh; font-weight: 700; margin: 3vh 0 0 5vh; }
 
 #fifa { color: cornflowerblue;}
 
 #world { color: crimson;}
 
-#cup { color: lightgreen}
+#cup { color: green}
 
-.lead { color: rgba(240, 255, 255, 0.8); font-size: 2.5vh; margin: 1.5vh 0 0 5vh; }
+.lead { color: dimgrey; font-size: 2.5vh; margin: 1.5vh 0 0 5vh; }
 
 #viz {
     align-items: center;
@@ -47,9 +47,9 @@ input[type="range"] { width: 100%; }
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(20px);
     border-radius: 2vh;
-    color: rgb(200, 200, 200);
+    color: dimgrey;
     font-weight: 600;
-    padding: 1vh 2vh;
+    padding: 1vh;
     text-align: center;
     -webkit-backdrop-filter: blur(20px);
 }
@@ -57,13 +57,14 @@ input[type="range"] { width: 100%; }
 button {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(20px);
+    border-color: whitesmoke;
     border-radius: 2vh;
-    color: rgb(200, 200, 200);
+    color: dimgrey;
     padding: 1vh 2vh;
     -webkit-backdrop-filter: blur(20px);
 }
 
-button[aria-pressed="true"] { background: rgba(255, 0, 255, 0.15); padding: 1vh 2.25vh; }
+button[aria-pressed="true"] { background: rgba(255, 255, 255, 0.15); padding: 1vh 2.25vh; }
 
 .legend {
     align-items:center;
@@ -83,22 +84,13 @@ button[aria-pressed="true"] { background: rgba(255, 0, 255, 0.15); padding: 1vh 
 }
 
 .tooltip {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(220, 220, 220, 0.15);
     backdrop-filter: blur(20px);
     border-radius: 2vh;
-    color: rgb(200, 200, 200);
+    color: dimgrey;
     padding: 1vh 1.5vh;
     pointer-events: none;
     position: absolute;
     -webkit-backdrop-filter: blur(20px);
     z-index: 20;
 }
-
-
-footer {
-    color: #666;
-    font-size: 12px;
-    padding: 8px 22px 20px 22px;
-}
-
-a.small { color:#0b63ff; text-decoration:none; }
