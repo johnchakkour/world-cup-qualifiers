@@ -191,6 +191,7 @@ function getFlagEmoji(countryName) {
         "Colombia": "🇨🇴",
         "Costa Rica": "🇨🇷",
         "Croatia": "🇭🇷",
+        "Cuba": "🇨🇺",
         "Czech Republic": "🇨🇿",
         "Democratic Republic of the Congo": "🇨🇩",
         "Denmark": "🇩🇰",
