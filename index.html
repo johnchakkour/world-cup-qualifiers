@@ -17,18 +17,18 @@
 
 	<body>
 
-		<h1>A History of the <span id="fifa">FIFA</span>
+		<h1 class="fade-item delay-1">A History of the <span id="fifa">FIFA</span>
 				<span id="world">World</span> <span id="cup">Cup</span> &#9917;</h1>
-		<p class="lead">Slide through tournament years, from 1930 to the present.</p>
+		<p class="lead fade-item delay-2">Slide through tournament years, from 1930 to the present.</p>
 
-		<div id="viz">
+		<div id="viz" class="fade-item delay-3">
 			<div style="position:relative; width:100%; max-width:1200px;">
 				<svg id="mapSvg" viewBox="0 0 1200 650" preserveAspectRatio="xMidYMid meet"></svg>
 				<div class="tooltip" id="tooltip"></div>
 			</div>
 		</div>
 
-		<div class="controls">
+		<div class="controls fade-item delay-4">
 			<button id="playBtn" aria-pressed="false">&#9654;</button>
 			
 			<div class="slider-wrap">
@@ -45,6 +45,15 @@
 
 		<script src="js/main.js"></script>
 
+		<script>
+			window.addEventListener("load", () => {
+				document.querySelectorAll(".fade-item").forEach(el => {
+					// Force reflow so transitions trigger even if loaded instantly
+					void el.offsetWidth;
+					el.classList.add("visible");
+				});
+			});
+		</script>
 	</body>
 	
 </html>
