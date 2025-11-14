@@ -25,7 +25,6 @@ let colorScale = {
     "default": "transparent"
 };
 
-// Taking into account hyphens in "semi-finals" and "quarter-finals"
 let normalizedColorScale = {};
 for (let key in colorScale) {
     normalizedColorScale[normalize(key)] = colorScale[key];
@@ -33,18 +32,96 @@ for (let key in colorScale) {
 
 let strokeColor = "dimgrey";
 
-// Name overrides for inconsistent country naming between GeoJSON and CSV files
+// Name overrides for inconsistent country naming
 let nameOverrides = {
     "Czechoslovakia": "Czech Republic",
     "Dutch East Indies": "Indonesia",
     "Soviet Union": "Russia",
     "Serbia": "Republic of Serbia",
     "Serbia and Montenegro": "Republic of Serbia",
-    "United States": "USA",
+    "United States": "USA",  // ← restored so USA lights up again
     "West Germany": "Germany",
     "Yugoslavia": "Republic of Serbia",
     "Zaire": "Democratic Republic of the Congo"
 };
+
+// =============================================================
+// Successor state logic (modern and historical)
+// =============================================================
+
+let successorCountries = {
+    // USSR: all former republics
+    "Soviet Union": [
+        "Russia", "Ukraine", "Belarus", "Estonia", "Latvia", "Lithuania",
+        "Moldova", "Armenia", "Azerbaijan", "Georgia",
+        "Kazakhstan", "Kyrgyzstan", "Tajikstan", "Turkmenistan", "Uzbekistan"
+    ],
+
+    // Yugoslavia
+    "Yugoslavia": [
+        "Republic of Serbia", "Croatia", "Slovenia", "Bosnia and Herzegovina",
+        "Macedonia", "Montenegro", "Kosovo"
+    ],
+
+    "Serbia and Montenegro": ["Republic of Serbia", "Montenegro", "Kosovo"],
+
+    // Czechoslovakia → Czech Republic + Slovakia
+    "Czechoslovakia": ["Czech Republic", "Slovakia"]
+};
+
+function getHistoricalName(modernName, year) {
+    // Modern to historical name rules
+    if (modernName === "Indonesia" && year < 1950) return "Dutch East Indies";
+    if (modernName === "Democratic Republic of the Congo" && year < 1997) return "Zaire";
+    if (modernName === "Swaziland" && year > 2017) return "Eswatini";
+    if (modernName === "Burkina Faso" && year < 1984) return "Upper Volta";
+    if (modernName === "Belize" && year < 1973) return "British Honduras";
+    if (modernName === "Western Sahara" && year < 1976) return "Spanish Sahara";
+    if (modernName === "Zimbabwe" && year < 1979) return "Rhodesia";
+    if (modernName === "Djibouti" && year < 1967) return "French Somaliland";
+    if (modernName === "Benin" && year < 1975) return "Dahomey";
+    if (modernName === "Sri Lanka" && year < 1972) return "Ceylon";
+    if (modernName === "United Arab Emirates" && year < 1971) return "Trucial States";
+    if (modernName === "Bangladesh" && year < 1971) return "Pakistan";
+    if (modernName === "Equatorial Guinea" && year < 1968) return "Spanish Guiana";
+    if (modernName === "Syria" && year == 1958) return "United Arab Republic";
+    if (modernName === "Egypt" && year == 1958) return "United Arab Republic";
+    if (modernName === "Ghana" && year < 1957) return "Gold Coast";
+    if (modernName === "Jordan" && year < 1949) return "Transjordan";
+    if (modernName === "Israel" && year < 1948) return "Mandatory Palestine";
+    if (modernName === "West Bank" && year < 1948) return "Mandatory Palestine";
+    if (modernName === "West Bank" && year > 1947) return "Palestine";
+    if (modernName === "Thailand" && year < 1939) return "Siam";
+    if (modernName === "Iran" && year < 1937) return "Persia";
+
+    // USSR republics before 1991
+    let ussr = [
+        "Russia", "Kazakhstan", "Kyrgyzstan", "Armenia", "Azerbaijan", "Belarus",
+        "Estonia", "Georgia", "Latvia", "Lithuania", "Moldova", "Tajikstan",
+        "Turkmenistan", "Ukraine", "Uzbekistan"
+    ];
+    if (ussr.includes(modernName) && year < 1991) return "Soviet Union";
+
+    let czechoslovakia = ["Czech Republic", "Slovakia"];
+    if (czechoslovakia.includes(modernName) && year < 1993) return "Czechoslovakia";
+
+    let yugoslavia = [
+        "Republic of Serbia", "Croatia", "Slovenia", "Bosnia and Herzegovina",
+        "Macedonia", "Montenegro", "Kosovo"
+    ]
+    if (yugoslavia.includes(modernName) && year < 1991) return "Yugoslavia"
+
+    if (modernName === "Macedonia" && year > 2018) return "North Macedonia";
+    if (modernName === "Kosovo" && year < 2002) return "Yugoslavia";
+    if (modernName === "Republic of Serbia" && year < 2002) return "Yugoslavia";
+    if (modernName === "Montenegro" && year < 2002) return "Yugoslavia";
+    if (modernName === "Kosovo" && year > 2002 && year < 2007) return "Serbia and Montenegro";
+    if (modernName === "Republic of Serbia" && year > 2002 && year < 2007) return "Serbia and Montenegro";
+    if (modernName === "Montenegro" && year > 2002 && year < 2007) return "Serbia and Montenegro";
+    if (modernName === "Republic of Serbia") return "Serbia";
+
+    return modernName;
+}
 
 // =============================================================
 // D3 setup
@@ -62,7 +139,6 @@ let tooltip = d3.select("#tooltip"),
 let worldData, qualifiersData, allYears;
 let qualifiedByYear = new Map();
 
-// Projection & path
 let projection = d3.geoNaturalEarth1()
                     .scale(261.5)
                     .translate([width / 2.5, height / 1.75]);
@@ -80,18 +156,21 @@ Promise.all([
         performance: d.performance?.trim(),
         topScorer: d.top_scorer?.trim(),
         topScorerGoals: d.top_scorer_goals?.trim()
-        }))
-    ]).then(([geo, data]) => {
+    }))
+]).then(([geo, data]) => {
+
     worldData = geo;
     qualifiersData = data.filter(d => d.country && !isNaN(d.year));
 
-    allYears = Array.from(new Set(qualifiersData.map(d => d.year))).sort((a, b) => a - b);
+    allYears = Array.from(new Set(qualifiersData.map(d => d.year)))
+                        .sort((a, b) => a - b);
 
-    // Slider setup: discrete every 4 years
-    yearSlider.attr("min", allYears[0])
-                .attr("max", allYears[allYears.length - 1])
-                .attr("step", 4)
-                .property("value", allYears[0]);
+    yearSlider
+        .attr("min", allYears[0])
+        .attr("max", allYears[allYears.length - 1])
+        .attr("step", 4)
+        .property("value", allYears[0]);
+
     yearLabel.text(allYears[0]);
 
     qualifiedByYear = d3.group(qualifiersData, d => d.year);
@@ -102,11 +181,8 @@ Promise.all([
 });
 
 // =============================================================
-// Draw and update map
+// Draw map
 // =============================================================
-
-let hoveredFeature = null;          // country currently hovered
-let lastMousePos = { x: 0, y: 0 };  // remember last mouse position
 
 function drawMap() {
     svg.append("g")
@@ -117,7 +193,90 @@ function drawMap() {
         .attr("d", path)
         .attr("fill", colorScale.default)
         .attr("stroke", strokeColor)
-        .attr("stroke-width", 0.6)
+        .attr("stroke-width", 0.6);
+
+    bindTooltipEvents();  // ← important
+}
+
+// =============================================================
+// Helper functions
+// =============================================================
+
+function normalize(s) {
+    return s?.toLowerCase().replace(/[^a-z0-9 ]/g, "").trim();
+}
+
+function matchCountry(geoName, csvName) {
+    if (!csvName) return false;
+
+    let override = nameOverrides[csvName] || csvName;
+    return normalize(geoName) === normalize(override);
+}
+
+// Main fill logic for updateMap + tooltips
+function countryQualifies(geoName, year) {
+    let yearData = qualifiedByYear.get(year) || [];
+
+    return yearData.find(r => {
+        let override = nameOverrides[r.country] || r.country;
+
+        // Direct match
+        if (normalize(override) === geoName) return true;
+
+        // Successor match
+        if (successorCountries[r.country]) {
+            return successorCountries[r.country].some(succ => {
+                let succOverride = nameOverrides[succ] || succ;
+                return normalize(succOverride) === geoName;
+            });
+        }
+        return false;
+    });
+}
+
+function fillForCountry(feature, year) {
+    let geoName = normalize(feature.properties.name || feature.properties.NAME);
+    let match = countryQualifies(geoName, year);
+
+    if (match) {
+        let perf = normalize(match.performance);
+        return normalizedColorScale[perf] || "#transparent";
+    }
+
+    return "transparent";  // Never qualified
+}
+
+// =============================================================
+// Update map (with robust tooltip refresh and rebindings)
+// =============================================================
+
+let hoveredFeature = null;
+let lastMousePos = { x: 0, y: 0 };
+
+function updateMap(year) {
+    yearLabel.text(year);
+
+    let paths = svg.selectAll(".countries path");
+
+    paths.transition("fillTransition")
+        .duration(500)
+        .attr("fill", d => fillForCountry(d, year))
+        .on("end", function(_, i, nodes) {
+            if (i === nodes.length - 1 && hoveredFeature) {
+                let fakeEvent = { pageX: lastMousePos.x, pageY: lastMousePos.y };
+                showTooltip(fakeEvent, hoveredFeature);
+            }
+        });
+
+    bindTooltipEvents();   // ← CRITICAL FIX
+}
+
+// =============================================================
+// Tooltip binding
+// =============================================================
+
+function bindTooltipEvents() {
+    svg.selectAll(".countries path")
         .on("mouseenter", function(event, d) {
             hoveredFeature = d;
             lastMousePos = { x: event.pageX, y: event.pageY };
@@ -133,140 +292,27 @@ function drawMap() {
         });
 }
 
-function updateMap(year) {
-    yearLabel.text(year);
-    let yearData = qualifiedByYear.get(year) || [];
-
-    svg.selectAll(".countries path")
-        .transition()
-        .duration(500)
-        .attr("fill", d => {
-            let match = yearData.find(r => matchCountry(d, r.country));
-            if (match) {
-                let perf = normalize(match.performance);
-                return normalizedColorScale[perf] || colorScale.default;
-            }
-            return colorScale.default;
-        })
-        .on("end", () => {
-            // Keep tooltip in sync if hovering
-            if (hoveredFeature) {
-                let fakeEvent = { pageX: lastMousePos.x, pageY: lastMousePos.y };
-                showTooltip(fakeEvent, hoveredFeature);
-            }
-        });
-} 
-
 // =============================================================
-// Country name matching helpers
-// =============================================================
-
-function normalize(s) {
-    return s?.toLowerCase().replace(/[^a-z0-9 ]/g, "").trim();
-}
-
-function matchCountry(feature, name) {
-    if (!name) return false;
-    let geoName = feature.properties.name || feature.properties.NAME;
-    let override = nameOverrides[name] || name;
-    return normalize(geoName) === normalize(override);
-}
-
-// =============================================================
-// Country flag emoji helper
-// =============================================================
-function getFlagEmoji(countryName) {
-    // ISO 3166 country codes for key matches
-    let flags = {
-        "Argentina": "🇦🇷",
-        "Australia": "🇦🇺",
-        "Austria": "🇦🇹",
-        "Belgium": "🇧🇪",
-        "Brazil": "🇧🇷",
-        "Bolivia": "🇧🇴",
-        "Cameroon": "🇨🇲",
-        "Canada": "🇨🇦",
-        "Chile": "🇨🇱",
-        "China": "🇨🇳",
-        "Colombia": "🇨🇴",
-        "Costa Rica": "🇨🇷",
-        "Croatia": "🇭🇷",
-        "Cuba": "🇨🇺",
-        "Czech Republic": "🇨🇿",
-        "Democratic Republic of the Congo": "🇨🇩",
-        "Denmark": "🇩🇰",
-        "Ecuador": "🇪🇨",
-        "Egypt": "🇪🇬",
-        "England": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-        "Finland": "🇫🇮",
-        "France": "🇫🇷",
-        "Germany": "🇩🇪",
-        "Ghana": "🇬🇭",
-        "Greece": "🇬🇷",
-        "Haiti": "🇭🇹",
-        "Hungary": "🇭🇺",
-        "Iceland": "🇮🇸",
-        "Iran": "🇮🇷",
-        "Iraq": "🇮🇶",
-        "Ireland": "🇮🇪",
-        "Italy": "🇮🇹",
-        "Japan": "🇯🇵",
-        "Mexico": "🇲🇽",
-        "Morocco": "🇲🇦",
-        "Netherlands": "🇳🇱",
-        "Nigeria": "🇳🇬",
-        "Norway": "🇳🇴",
-        "Paraguay": "🇵🇾",
-        "Peru": "🇵🇪",
-        "Poland": "🇵🇱",
-        "Portugal": "🇵🇹",
-        "Qatar": "🇶🇦",
-        "Republic of Serbia": "🇷🇸",
-        "Romania": "🇷🇴",
-        "Russia": "🇷🇺",
-        "Saudi Arabia": "🇸🇦",
-        "Scotland": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-        "Senegal": "🇸🇳",
-        "Slovakia": "🇸🇰",
-        "Slovenia": "🇸🇮",
-        "South Africa": "🇿🇦",
-        "South Korea": "🇰🇷",
-        "Spain": "🇪🇸",
-        "Sweden": "🇸🇪",
-        "Switzerland": "🇨🇭",
-        "Tunisia": "🇹🇳",
-        "Turkey": "🇹🇷",
-        "Ukraine": "🇺🇦",
-        "USA": "🇺🇸",
-        "Uruguay": "🇺🇾",
-        "Wales": "🏴󠁧󠁢󠁷󠁬󠁳󠁿"
-    };
-
-    return flags[countryName] || "";
-}
-
-// =============================================================
-// Tooltip handlers
+// Tooltip renderer
 // =============================================================
 
 function showTooltip(event, d) {
-    let currentYear = +yearSlider.property("value");
-    let yearData = qualifiedByYear.get(currentYear) || [];
-    let match = yearData.find(r => matchCountry(d, r.country));
-    let countryName = d.properties.name;
-    let flag = getFlagEmoji(countryName);
-    let html = `<strong>${countryName}${flag ? " " + flag : ""}</strong>`;
+    let year = +yearSlider.property("value");
+
+    let geoName = normalize(d.properties.name || d.properties.NAME);
+    let match = countryQualifies(geoName, year);
+
+    let modernName = d.properties.name;
+    let countryName = getHistoricalName(modernName, year);
+
+    let html = `<strong>${countryName}</strong>`;
 
     if (match) {
         html += `<div><em>${match.performance}</em></div>`;
         if (match.topScorer) {
-            html += `<div>Top scorer: ${match.topScorer}`;
-            if (match.topScorerGoals) {
-                let g = match.topScorerGoals;
-                let label = g === "1" || g === 1 ? "goal" : "goals";
-                html += ` (${g} ${label})`;
-            }
-            html += `</div>`;
+            let g = match.topScorerGoals;
+            let label = g == 1 ? "goal" : "goals";
+            html += `<div>Top scorer: ${match.topScorer} (${g} ${label})</div>`;
         }
     } else {
         html += `<div>Not qualified</div>`;
@@ -278,7 +324,7 @@ function showTooltip(event, d) {
 
 function moveTooltip(event) {
     tooltip.style("left", (event.pageX - 100) + "px")
-            .style("top", (event.pageY - 120) + "px");
+           .style("top", (event.pageY - 120) + "px");
 }
 
 function hideTooltip() {
@@ -286,7 +332,7 @@ function hideTooltip() {
 }
 
 // =============================================================
-// Slider + play controls
+// Slider + Play controls
 // =============================================================
 
 yearSlider.on("input", function() {
@@ -302,28 +348,28 @@ playBtn.on("click", function() {
 });
 
 function startPlay() {
-    playBtn.attr("aria-pressed", "true").text("\u23f8"); // Pause symbol
+    playBtn.attr("aria-pressed", "true").text("\u23f8");
     let currentIndex = allYears.indexOf(+yearSlider.property("value"));
     playTimer = setInterval(() => {
         currentIndex = (currentIndex + 1) % allYears.length;
-        const year = allYears[currentIndex];
+        let year = allYears[currentIndex];
         yearSlider.property("value", year);
         updateMap(year);
     }, 1200);
 }
 
 function stopPlay() {
-    playBtn.attr("aria-pressed", "false").text("\u25b6"); // Play symbol
+    playBtn.attr("aria-pressed", "false").text("\u25b6");
     clearInterval(playTimer);
 }
 
 // =============================================================
-// Legend (dynamic, built from colorScale)
+// Legend
 // =============================================================
 
 function buildLegend() {
-    let legendContainer = d3.select(".legend");
-    legendContainer.selectAll("*").remove(); // clear existing
+    let legend = d3.select(".legend");
+    legend.selectAll("*").remove();
 
     const orderedKeys = [
         "champion", "runner-up", "third place", "semi-finals",
@@ -333,9 +379,8 @@ function buildLegend() {
     orderedKeys.forEach(k => {
         let color = colorScale[k];
         if (color) {
-            legendContainer.append("div")
-                                .html(`<span class="sw" style="background:
-                    ${color}"></span>${k.replace(/\b\w/g, c => c.toUpperCase())}`);
+            legend.append("div")
+                .html(`<span class="sw" style="background:${color}"></span>${k}`);
         }
     });
 }
