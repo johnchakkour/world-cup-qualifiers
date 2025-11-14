@@ -1,4 +1,4 @@
-# A History of the FIFA World Cup
+# A History of the FIFA World Cup &#9917;
 World map showing which countries have qualified to the World Cup over the years and their performance.
 
 ## To be implemented
