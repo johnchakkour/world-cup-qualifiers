@@ -6,13 +6,11 @@ body {
 
 .fade-item {
     opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.8s ease-out, transform 2s ease-out;
+    transition: opacity 0.8s ease;
 }
 
 .fade-item.visible {
     opacity: 1;
-    transform: translateY(0);
 }
 
 .delay-1 { transition-delay: 1s; }
