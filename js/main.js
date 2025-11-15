@@ -335,8 +335,8 @@ function showTooltip(event, d) {
 }
 
 function moveTooltip(event) {
-    tooltip.style("left", (event.pageX + 15) + "px")
-           .style("top", (event.pageY - 10) + "px");
+    tooltip.style("left", (event.pageX + 10) + "px")
+           .style("top", (event.pageY - 100) + "px");
 }
 
 function hideTooltip() {
