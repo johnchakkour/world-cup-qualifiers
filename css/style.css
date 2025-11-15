@@ -1,0 +1,190 @@
+body {
+    background: whitesmoke;
+    font-family: "Mona Sans", "Segoe UI", "Helvetica Neue", sans-serif;
+    margin: 0;
+}
+
+/*
+.fade-item {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.8s ease-out, transform 2s ease-out;
+}
+
+.fade-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 1s; }
+.delay-2 { transition-delay: 2s; }
+.delay-3 { transition-delay: 3s; }
+.delay-4 { transition-delay: 4s; }
+*/
+
+h1 { color: dimgrey; font-size: 4vh; font-weight: 700; margin: 3vh 0 0 5vh; }
+
+#fifa { color: cornflowerblue;}
+
+#world { color: crimson;}
+
+#cup { color: green}
+
+.lead { color: dimgrey; font-size: 2.5vh; margin: 1.5vh 0 0 5vh; }
+
+#viz {
+    display: flex;
+    flex: 1;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+svg {
+    background: transparent;
+    border-radius: 6px;
+    height: 100%;
+    max-height: 75vh;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.controls {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    padding: 22px 22px 22px 22px;
+}
+
+.slider-wrap { flex: 1; display:flex; align-items:center; gap:12px; }
+
+input[type="range"] { width: 100%; }
+
+#yearLabel {
+    border-radius: 2vh;
+    color: dimgrey;
+    font-weight: 600;
+    padding: 1vh;
+    text-align: center;
+}
+
+button {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-color: whitesmoke;
+    border-radius: 2vh;
+    color: dimgrey;
+    padding: 1vh 2vh;
+    -webkit-backdrop-filter: blur(20px);
+}
+
+button[aria-pressed="true"] { background: rgba(255, 255, 255, 0.15); padding: 1vh 2.25vh; }
+
+.legend {
+    align-items: center;
+    color: dimgrey;
+    display: flex;
+    font-size: 15px;
+    gap: 10px;
+    margin-left: 18px;
+}
+
+.legend .sw {
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 6px;
+    height: 10px;
+    width: 15px;
+}
+
+.tooltip {
+    background: rgba(220, 220, 220, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 2vh;
+    color: dimgrey;
+    padding: 1vh 1.5vh;
+    pointer-events: none;
+    position: absolute;
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 20;
+}
+
+#mapSvg {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+#viz-layout {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+#map-area {
+    flex: 1;
+    min-width: 0;
+}
+
+#awardsPanel {
+    background: rgba(220, 220, 220, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    cursor: grab;
+    color: dimgrey;
+    max-height: 55vh;
+    opacity: 0;
+    overflow-y: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: absolute;
+    right: 40px;
+    top: 120px;
+    transform: translateX(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    width: 40vh;
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 2000;
+}
+
+#awardsPanel.dragging {
+    cursor: grabbing;
+    opacity: 0.92;
+    transition: none !important;
+}
+
+#awardsPanel.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.award-card {
+    padding: 8px;
+    margin-bottom: 8px;
+    background: #fff;
+    border-radius: 9px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.award-name {
+    margin-bottom: 4px;
+}
+
+.award-winner {
+    color: #444;
+}
+
+.video-card {
+    background: rgba(255, 100, 100, 0.15);
+    backdrop-filter: blur(20px);
+    box-shadow: none;
+    padding-left: 10px;
+    padding-bottom: -5px;
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.video-title {
+    font-weight: 500;
+    padding: 5px 8px;
+}
+
