@@ -335,8 +335,8 @@ function showTooltip(event, d) {
 }
 
 function moveTooltip(event) {
-    tooltip.style("left", (event.pageX + 10) + "px")
-           .style("top", (event.pageY - 100) + "px");
+    tooltip.style("left", (event.pageX + 15) + "px")
+           .style("top", (event.pageY) + "px");
 }
 
 function hideTooltip() {
@@ -563,7 +563,7 @@ function updateAwardsPanel(year) {
     let offsetX = 0;
     let offsetY = 0;
 
-    // Mouse Down → start drag
+    // Mouse down: start drag
     panel.addEventListener("mousedown", (e) => {
         isDragging = true;
         panel.classList.add("dragging");
@@ -575,14 +575,14 @@ function updateAwardsPanel(year) {
         e.preventDefault();
     });
 
-    // Mouse Move → drag
+    // Mouse move: drag
     document.addEventListener("mousemove", (e) => {
         if (!isDragging) return;
 
         let newLeft = e.clientX - offsetX;
         let newTop = e.clientY - offsetY;
 
-        // Optional: prevent dragging off-screen
+        // Prevent dragging off-screen
         const maxLeft = window.innerWidth - panel.offsetWidth;
         const maxTop = window.innerHeight - panel.offsetHeight;
 
