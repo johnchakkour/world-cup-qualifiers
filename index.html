@@ -1,26 +1,71 @@
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FIFA World Cup Visualizations</title>
-  <link rel="stylesheet" href="styles/home.css" />
-</head>
 
-<body>
-  <h1 class="title">FIFA World Cup Visualizations</h1>
+	<head>
 
-  <div class="cards">
-    <a class="card" href="timeline/index.html">
-      <h2>🌍 World Cup Timeline Map</h2>
-      <p>Explore every tournament year, qualifications, and country performance.</p>
-    </a>
+		<meta charset="utf-8">
+		<title>FIFA World Cup — Timeline</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<script src="https://d3js.org/d3.v7.min.js"></script>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@200..900&display=swap" rel="stylesheet">
 
-    <a class="card" href="awards/index.html">
-      <h2>🏆 Award Winners Explorer</h2>
-      <p>Browse Golden Ball, Golden Glove, top scorers, and video highlights.</p>
-    </a>
-  </div>
+	</head>
 
-</body>
+	<body>
+
+		<h1 class="fade-item delay-1">A History of the <span id="fifa">FIFA</span>
+				<span id="world">World</span> <span id="cup">Cup</span> &#9917;</h1>
+		<p class="lead fade-item delay-2">Slide through tournament years, from 1930 to the present. 
+			Scroll through and drag the panel on the right.</p>
+
+		<div id="viz" class="fade-item delay-3">
+
+			<div id="viz-layout">
+				
+				<div id="map-area">
+					<svg id="mapSvg" viewBox="-55 -20 1200 650" preserveAspectRatio="xMidYMid meet"></svg>
+					<div class="tooltip" id="tooltip"></div>
+				</div>
+
+				<div id="awardsPanel">
+					<h2 id="awardsYear">1930 World Cup Awards</h2>
+					<div id="awardsContent"></div>
+				</div>
+				
+			</div>
+
+		</div>
+
+		<div class="controls fade-item delay-4">
+			<button id="playBtn" aria-pressed="false">&#9654;</button>
+			
+			<div class="slider-wrap">
+				<input id="yearSlider" type="range" min="1930" max="2022" step="1" value="1930" />
+				<div id="yearLabel">1930</div>
+			</div>
+
+			<div class="legend" aria-hidden="true">
+				<div><span class="sw" style="background:#dbe9ff"></span>Qualified this year</div>
+				<div><span class="sw" style="background:#bfe0ff"></span>Qualified previously</div>
+				<div><span class="sw" style="background:#efefef"></span>Never qualified</div>
+			</div>
+		</div>
+
+		<script src="js/main.js"></script>
+
+		<script>
+			window.addEventListener("load", () => {
+				document.querySelectorAll(".fade-item").forEach(el => {
+					// Force reflow so transitions trigger even if loaded instantly
+					void el.offsetWidth;
+					el.classList.add("visible");
+				});
+			});
+		</script>
+	</body>
+	
 </html>
